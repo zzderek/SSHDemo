@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-3-15 16:30:05 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="com.derek.model">
+    <class name="com.derek.model.User" table="t_user">
+        <id name="id" column="id" type="java.lang.Integer"/>
+        <property name="userName" column="userName" type="java.lang.String"/>
+        <property name="password" column="password" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>
