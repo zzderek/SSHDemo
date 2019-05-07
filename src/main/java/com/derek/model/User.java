@@ -1,10 +1,20 @@
 package com.derek.model;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "t_user")
 public class User {
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="userName")
     private String userName;
 
+    @Column(name="password")
     private String password;
 
     public Integer getId() {

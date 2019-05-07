@@ -9,6 +9,7 @@ public class BookService {
     private Logger logger = LoggerFactory.getLogger(BookService.class);
 
     public void show() {
-        logger.info("书Service");
+        System.out.println("service");
+
     }
 }

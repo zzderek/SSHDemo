@@ -26,8 +26,7 @@ public class BookController {
 
     @GetMapping(value = "/index")
     public String printHello(ModelMap model) {
-
-        bookService.show();
+        logger.info("访问/index");
         model.addAttribute("message", "Hello Spring MVC Framework!");
 
         return "index";
@@ -36,6 +35,7 @@ public class BookController {
     @GetMapping(value = "/user")
     public String getUser(ModelMap model) {
 
+        logger.info("访问/user");
         List list =  userService.getUserById(1);
         model.addAttribute("message", list);
 

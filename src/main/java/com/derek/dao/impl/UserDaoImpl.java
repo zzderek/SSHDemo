@@ -24,7 +24,7 @@ public class UserDaoImpl implements IUserDao {
     }
 
     public  List<User> findUserById(int id) {
-        String hql="SELECT * FROM com.derek.model.User";
+        String hql="FROM com.derek.model.User";
         Query query=getSession().createQuery(hql);
        // query.setParameter(0,id);
         List userList = query.list();
