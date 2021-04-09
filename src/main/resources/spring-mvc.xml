@@ -36,7 +36,11 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
 
+    <!--  引入Swagger -->
+    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
+
     <!-- 解析静态资源 -->
     <mvc:default-servlet-handler/>
+
 
 </beans>

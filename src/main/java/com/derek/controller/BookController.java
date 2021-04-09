@@ -1,7 +1,10 @@
 package com.derek.controller;
 
+import com.derek.model.User;
 import com.derek.service.BookService;
 import com.derek.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ public class BookController {
     private UserService userService;
 
 
+
     @GetMapping(value = "/index")
     public String printHello(ModelMap model) {
         logger.info("访问/index");
@@ -36,8 +40,8 @@ public class BookController {
     public String getUser(ModelMap model) {
 
         logger.info("访问/user");
-        List list =  userService.getUserById(1);
-        model.addAttribute("message", list);
+        User user =  userService.getUserById(1);
+        model.addAttribute("message", user);
 
         return "index";
     }

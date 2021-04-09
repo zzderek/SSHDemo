@@ -55,6 +55,56 @@
         </property>
     </bean>
 
+    <!-- redis连接池 -->
+    <bean id="redisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.maxActive}" />
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+    </bean>
+
+    <!-- 连接池配置，类似数据库连接池 -->
+    <bean id="jedisConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}"></property>
+        <property name="port" value="${redis.port}"></property>
+        <!-- <property name="password" value="${redis.pass}"></property> -->
+        <property name="poolConfig" ref="redisPoolConfig"></property>
+    </bean>
+
+    <!--redis操作模版,使用该对象可以操作redis  -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" >
+        <property name="connectionFactory" ref="jedisConnectionFactory" />
+        <!--如果不配置Serializer，那么存储的时候缺省使用String，如果用User类型存储，那么会提示错误User can't cast to String！！  -->
+        <property name="keySerializer" >
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="valueSerializer" >
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer" />
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+        </property>
+        <!--开启事务  -->
+        <property name="enableTransactionSupport" value="true"></property>
+    </bean >
+
+    <bean class="com.derek.config.SwaggerConfig"/>
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
+
+    <mvc:interceptors>
+        <!-- 使用 bean声明定义一个Interceptor，但是如果是直接定义在 mvc:interceptors 下面的 Interceptor将会拦截所有的请求 -->
+        <!--<bean class="com.xxx.xxx.AuthorityInterceptor"/> -->
+        <mvc:interceptor>
+            <!--定义在这里的拦截器将会拦截特定的请求-->
+            <mvc:mapping path="/**"/>
+            <bean class="com.derek.intercepter.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 
     <!-- 事务管理器 -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" >

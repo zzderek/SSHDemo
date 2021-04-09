@@ -23,12 +23,13 @@ public class UserDaoImpl implements IUserDao {
         return sessionFactory.getCurrentSession();
     }
 
-    public  List<User> findUserById(int id) {
-        String hql="FROM com.derek.model.User";
+    public  User findUserById(int id) {
+        String hql="FROM com.derek.model.User where id = ?";
         Query query=getSession().createQuery(hql);
-       // query.setParameter(0,id);
-        List userList = query.list();
-        return userList;
+        query.setParameter(0,id);
+        User user = (User)query.uniqueResult(); // 查询单一对象
+       // List userList = query.list(); //查询对象集合
+        return user;
     }
 
     public void saveUser(User user) {

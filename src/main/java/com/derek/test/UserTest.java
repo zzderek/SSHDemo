@@ -26,8 +26,8 @@ public class UserTest {
     @Test
     public void testGetAcccountById() {
 
-        List<User> userList = userService.getUserById(1);
-        String userName = userList.get(0).getUserName();
+        User user = userService.getUserById(1);
+        String userName = user.getUserName();
         assertEquals(userName,"ii");
     }
 
